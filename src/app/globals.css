@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-pattern {
+    --pattern-fg: color-mix(in oklab, black 5%, transparent);
+    background-image: repeating-linear-gradient(
+      315deg,
+      var(--pattern-fg) 0,
+      var(--pattern-fg) 1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 10px 10px;
+    background-attachment: fixed;
+  }
+
+  .dark .bg-pattern {
+    --pattern-fg: color-mix(in oklab, white 10%, transparent);
+  }
+}

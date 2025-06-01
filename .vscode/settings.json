@@ -1,0 +1,21 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tailwindCSS.classFunctions": [
+    "tw",
+    "clsx",
+    "cva",
+    "cn",
+    "cx",
+    "tv",
+    "twMerge",
+    "twJoin"
+  ],
+  "tailwindCSS.classAttributes": [
+    "variantClasses",
+    "class",
+    "className",
+    "classNames",
+    "ngClass",
+    "class:list"
+  ]
+}
