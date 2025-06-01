@@ -15,7 +15,14 @@ export function CarouselItem({ media }: CarouselItemProps) {
   return (
     <div className="relative min-w-0 flex-shrink-0 flex-grow-0 basis-full">
       <span className="absolute inset-0 z-20 bg-gradient-to-t from-gray-950 from-0% to-transparent to-100% backdrop-blur-xl"></span>
-      <Image fill src={media.images.backdrop!} alt="alt" className="z-10" />
+      <Image
+        priority
+        fill
+        loading="eager"
+        src={media.images.backdrop!}
+        alt="alt"
+        className="z-10 object-cover"
+      />
 
       <div className="container relative z-30 grid h-full grid-cols-5 items-center gap-4 border-x border-default-600/20 py-16">
         <div className="col-span-3 text-white">

@@ -11,7 +11,12 @@ export function MediaDetails({ media }: MediaDetailsProps) {
     <section className="container relative z-0 border-x bg-background py-16">
       <div className="relative z-20 grid grid-cols-5 gap-4">
         <div className="col-span-1">
-          <MediaPoster src={media.images.poster} alt={media.title} />
+          <MediaPoster
+            priority
+            loading="eager"
+            src={media.images.poster}
+            alt={media.title}
+          />
         </div>
 
         <div className="col-span-4">
