@@ -6,7 +6,7 @@ const kinopoiskApi = new Api({
   baseUrl: "https://api.kinopoisk.dev",
   baseApiParams: {
     headers: {
-      "X-API-KEY": process.env.KINOPOISK_DEV_API!,
+      "X-API-KEY": process.env.OPENMOVIE_API_KEY!,
     },
   },
 })
