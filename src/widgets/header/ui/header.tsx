@@ -9,7 +9,7 @@ import { Link } from "@heroui/link"
 import { SearchForm } from "@/features/search-form"
 import { NavigationMenu } from "./navigation-menu"
 import { Logo } from "./logo"
-// import { MobileMenu } from "./mobile-menu"
+import { MobileMenu } from "./mobile-menu"
 
 // TODO: ПРОДОЛЖИТЬ
 
@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <>
-      <FocusLock group="header-group">
+      <FocusLock group="header-group" disabled={!isMenuOpen}>
         <Navbar
           as={"div"}
           disableAnimation
@@ -33,8 +33,7 @@ export function Header() {
           }}
         >
           <div className="container flex items-center justify-between gap-4 border-x md:grid md:grid-cols-8 lg:grid-cols-5">
-            {/* <Logo /> */}
-            <div>{JSON.stringify(isMenuOpen)}</div>
+            <Logo />
 
             <NavigationMenu />
 
@@ -43,33 +42,7 @@ export function Header() {
               <SearchForm inputProps={{ placeholder: "Поиск по сайту" }} />
             </div>
 
-            {/* <MobileMenu /> */}
-
-            {/*  */}
-
-            <NavbarMenuToggle />
-
-            <NavbarMenu className="px-4">
-              <NavbarMenuItem>
-                <FocusLock group="header-group">
-                  <Link className="w-full" href="/movie" size="lg">
-                    Фильмы
-                  </Link>
-                  <Link className="w-full" href="/tv-series" size="lg">
-                    Сериалы
-                  </Link>
-                  <Link className="w-full" href="/cartoon" size="lg">
-                    Мультфильмы
-                  </Link>
-                  <Link className="w-full" href="/animated-series" size="lg">
-                    Мультсериалы
-                  </Link>
-                  <Link className="w-full" href="/anime" size="lg">
-                    Аниме
-                  </Link>
-                </FocusLock>
-              </NavbarMenuItem>
-            </NavbarMenu>
+            <MobileMenu />
           </div>
         </Navbar>
       </FocusLock>
