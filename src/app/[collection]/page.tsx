@@ -31,8 +31,6 @@ export async function generateStaticParams() {
 }
 
 export default async function CollectionPage(props: Props) {
-  // await new Promise((resolve) => setTimeout(resolve, 5000))
-
   const queryParams = await loadQueryParams(props.searchParams)
   const params = await props.params
 

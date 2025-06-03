@@ -8,18 +8,19 @@ type MediaDetailsProps = {
 
 export function MediaDetails({ media }: MediaDetailsProps) {
   return (
-    <section className="container relative z-0 border-x bg-background py-16">
+    <section className="container relative z-0 border-x bg-background py-8 md:py-16">
       <div className="relative z-20 grid grid-cols-5 gap-4">
-        <div className="col-span-1">
+        <div className="col-span-full md:col-span-1">
           <MediaPoster
             priority
             loading="eager"
             src={media.images.poster}
             alt={media.title}
+            className="mx-auto w-3/5 sm:w-2/6 md:w-full"
           />
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-full md:col-span-4">
           <h1 className="text-3xl font-black">{media.title} смотреть онлайн</h1>
           <div className="my-4 flex items-end gap-2">
             <MediaAgeChip age={media.rating.age} />
@@ -42,14 +43,14 @@ function MediaPersons({ persons }: { persons: PersonInMedia[] }) {
   if (!directors || !directors.length) return null
 
   return (
-    <div className="mt-4 grid grid-cols-4 gap-4">
+    <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
       {directors.map(({ id, name, photo }) => (
         <div key={id} className="flex items-center gap-2">
           <Image
             width={40}
             height={40}
             src={photo}
-            className="size-10 select-none overflow-hidden rounded-full object-cover"
+            className="size-10 shrink-0 select-none overflow-hidden rounded-full object-cover"
             alt={name}
           />
           <div className="flex flex-1 flex-col">

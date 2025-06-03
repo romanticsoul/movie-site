@@ -20,7 +20,7 @@ export function PlayerTabs({ players }: PlayerTabsProps) {
           tab: "h-10 px-4",
           cursor: "w-full",
           tabList:
-            "container grid grid-cols-5 justify-start gap-4 rounded-none border-x bg-neutral-100 px-4 py-2",
+            "container grid grid-cols-3 justify-start gap-4 rounded-none border-x bg-neutral-100 px-4 py-2 sm:grid-cols-4 md:grid-cols-5",
           base: "flex border-b",
           tabContent: "text-small text-default-foreground/60",
           panel: "container border-x bg-neutral-100 p-4",
@@ -29,15 +29,15 @@ export function PlayerTabs({ players }: PlayerTabsProps) {
         {(player) => (
           <Tab
             key={player.source}
-            title={`Плеер ${player.source}`}
-            // title={player.id === 1 ? "Смотреть онлайн" : `Плеер ${player.id}`}
+            // title={`Плеер ${player.source}`}
+            title={player.id === 1 ? "Смотреть онлайн" : `Плеер ${player.id}`}
             className="text-small"
           >
             <iframe
               title={`Плеер для просмотра ${player.source}`}
               tabIndex={0}
               src={player.iframeUrl}
-              className="aspect-[21/9] w-full overflow-hidden rounded-large"
+              className="aspect-[3/2] w-full overflow-hidden rounded-large sm:aspect-[16/9] md:aspect-[21/9]"
               allowFullScreen
             />
           </Tab>

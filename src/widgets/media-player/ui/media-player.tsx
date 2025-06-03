@@ -16,7 +16,7 @@ export async function MediaPlayer({ kinopoiskId }: MediaPlayerProps) {
   if (!players || !players.length) {
     return (
       <section className="border-y">
-        <div className="container flex aspect-[21/9] flex-col items-center justify-center border-x bg-neutral-100">
+        <div className="container flex w-full flex-col items-center justify-center overflow-hidden rounded-large border-x bg-neutral-100 sm:aspect-[16/9] md:aspect-[21/9]">
           <h3 className="text-xl font-semibold text-default-foreground/50">
             К сожалению этот фильм еще нельзя посмотреть
           </h3>

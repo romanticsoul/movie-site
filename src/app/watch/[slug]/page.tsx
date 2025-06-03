@@ -22,6 +22,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function ContentPage(props: Props) {
+  await new Promise((resolve) => setTimeout(resolve, 5000))
+
   const params = await props.params
   const kinopoiskId = Number(params.slug.split("-")[0])
   const media = await getMediaById(kinopoiskId)
