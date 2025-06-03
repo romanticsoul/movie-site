@@ -85,6 +85,9 @@ export async function getKinoboxPlayers(config: KinoboxConfig): Promise<KinoboxP
   const res = await fetch(url.toString(), {
     cache: "no-cache",
   })
+
+  console.log(url.toString())
+
   if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`)
 
   const data: KinoboxPlayer[] = await res.json()

@@ -11,11 +11,12 @@ const config = {
       padding: "16px",
       center: true,
       screens: {
-        sm: "100%",
-        md: "100%",
-        lg: "768px",
-        xl: "1152px",
-        "2xl": "1152px",
+        lg: "1152px",
+        // sm: "100%",
+        // md: "100%",
+        // lg: "768px",
+        // xl: "1152px",
+        // "2xl": "1152px",
       },
     },
     extend: {
@@ -253,9 +254,9 @@ const config = {
       layout: {
         disabledOpacity: "0.6",
         radius: {
-          small: "2px",
-          medium: "4px",
-          large: "8px",
+          small: "0px",
+          medium: "0px",
+          large: "0px",
         },
         borderWidth: {
           small: "1px",

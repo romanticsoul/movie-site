@@ -15,7 +15,7 @@ export function MediaList({ title, response }: MediaListProps) {
       {!response && <ServerError />}
       {response && !response.items.length && <EmptyList />}
       {response && response.items.length && (
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {response.items.map((media) => (
             <MediaCard key={media.id} media={media} />
           ))}
@@ -38,7 +38,7 @@ export function MediaListSkeleton({ rowCount = 1 }: MediaListSkeletonProps) {
         <Skeleton className="h-8 w-1/4 rounded-large" />
       </h2>
 
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {arr.map((i) => (
           <MediaCardSkeleton key={i} />
         ))}

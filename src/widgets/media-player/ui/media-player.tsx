@@ -8,6 +8,9 @@ export type MediaPlayerProps = {
 export async function MediaPlayer({ kinopoiskId }: MediaPlayerProps) {
   const players = await getKinoboxPlayers({
     search: { kinopoisk: String(kinopoiskId) },
+    players: {
+      // videocdn: { enable: true, domain: "https://p.lumex.cloud/QAPRgy9NPBSF" },
+    },
   })
 
   if (!players || !players.length) {

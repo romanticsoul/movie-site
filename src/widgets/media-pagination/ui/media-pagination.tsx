@@ -7,6 +7,7 @@ import { Pagination, PaginationItem, PaginationItemType } from "@heroui/paginati
 import type { PaginationItemRenderProps } from "@heroui/pagination"
 import { useQueryParams, queryParamsSerializer } from "@/entities/query-params"
 import type { QueryParams } from "@/entities/query-params"
+import { cn } from "@heroui/theme"
 
 export type MediaPaginationProps = {
   page: number
@@ -22,7 +23,7 @@ export function MediaPagination(props: MediaPaginationProps) {
       <div className="container grid justify-center gap-4 border-x bg-background py-4">
         <Pagination
           size="lg"
-          siblings={2}
+          // siblings={2}
           showControls
           classNames={{
             wrapper: "relative z-0",
@@ -64,7 +65,7 @@ function renderItem(
         ref={ref}
         isIconOnly
         as={isDisabled ? "button" : Link}
-        className={className}
+        className={cn(className)}
         aria-label={ariaLabel}
         {...(isDisabled && { disabled: isDisabled })}
         {...(item.isActive && { "data-active": item.isActive })}

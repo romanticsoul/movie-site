@@ -29,7 +29,8 @@ export function PlayerTabs({ players }: PlayerTabsProps) {
         {(player) => (
           <Tab
             key={player.source}
-            title={player.id === 1 ? "Смотреть онлайн" : `Плеер ${player.id}`}
+            title={`Плеер ${player.source}`}
+            // title={player.id === 1 ? "Смотреть онлайн" : `Плеер ${player.id}`}
             className="text-small"
           >
             <iframe

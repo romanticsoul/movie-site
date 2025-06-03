@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning lang="ru" className="overflow-y-scroll">
+    <html suppressHydrationWarning lang="ru">
       <head />
       <body
         className={clsx(

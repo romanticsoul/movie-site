@@ -2,7 +2,7 @@ import { Link } from "@heroui/link"
 
 export function NavigationMenu() {
   return (
-    <nav className="col-span-2 flex justify-between gap-6">
+    <nav className="col-span-5 hidden justify-center gap-6 md:flex lg:col-span-2 lg:justify-between">
       <NavigationLink href="/movie">Фильмы</NavigationLink>
       <NavigationLink href="/tv-series">Сериалы</NavigationLink>
       <NavigationLink href="/cartoon">Мультфильмы</NavigationLink>
