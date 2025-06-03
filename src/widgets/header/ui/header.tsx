@@ -45,7 +45,7 @@ export function Header() {
           <SearchForm inputProps={{ placeholder: "Поиск по сайту" }} />
         </div>
 
-        <MobileMenu onNavigate={() => setIsMenuOpen(false)} />
+        <MobileMenu isMenuOpen={isMenuOpen} onNavigate={() => setIsMenuOpen(false)} />
       </FocusLock>
     </Navbar>
   )

@@ -8,7 +8,7 @@ export function MediaPlayerSkeleton() {
       </div>
       <div className="border-t">
         <div className="container border-x bg-neutral-100 py-4">
-          <Skeleton className="aspect-[21/9] w-full overflow-hidden rounded-large" />
+          <Skeleton className="aspect-[3/2] w-full overflow-hidden rounded-large sm:aspect-[16/9] md:aspect-[21/9]" />
         </div>
       </div>
     </section>

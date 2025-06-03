@@ -1,6 +1,8 @@
+"use server"
+import "server-only"
+import { cache } from "react"
 import { movieControllerFindOneV14 } from "../lib/kinopoisk/client"
 import { mapToMedia } from "./mapToMedia"
-import { cache } from "react"
 
 export const getMediaById = cache(async (id: number) => {
   try {

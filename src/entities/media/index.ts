@@ -19,10 +19,10 @@ export {
 
 export {
   fetchMediaList,
-  DEFAULT_PARAMS,
   type FetchParams,
   type FetchListResponse,
 } from "./api/fetchMediaList"
+export { DEFAULT_PARAMS } from "./api/config"
 export { getMediaById } from "./api/getMediaById"
 export { getMediaSimilar } from "./api/getMediaSimilar"
 export { searchMediaByTitle } from "./api/searchMediaByTitle"

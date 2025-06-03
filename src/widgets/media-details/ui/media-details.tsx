@@ -51,7 +51,7 @@ function MediaPersons({ persons }: { persons: PersonInMedia[] }) {
             height={40}
             src={photo}
             className="size-10 shrink-0 select-none overflow-hidden rounded-full object-cover"
-            alt={name}
+            alt={name || "Изображение актёра"}
           />
           <div className="flex flex-1 flex-col">
             <p className="text-nowrap text-small">{name}</p>

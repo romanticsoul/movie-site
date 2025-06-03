@@ -1,7 +1,5 @@
 import Image from "next/image"
-import { Link } from "@heroui/link"
 import { Button } from "@heroui/button"
-import { slugify } from "transliteration"
 import { type Media, MediaAgeChip, MediaRatingChip, MediaPoster } from "@/entities/media"
 
 type CarouselItemProps = {
@@ -9,9 +7,6 @@ type CarouselItemProps = {
 }
 
 export function CarouselItem({ media }: CarouselItemProps) {
-  // TEMP
-  const href = `/watch/${media.id}-${slugify(media.title)}-smotret-online`
-
   return (
     <div className="relative min-w-0 flex-shrink-0 flex-grow-0 basis-full">
       <span className="absolute inset-0 z-20 bg-gradient-to-t from-gray-950 from-0% to-transparent to-100% backdrop-blur-xl"></span>
@@ -35,7 +30,7 @@ export function CarouselItem({ media }: CarouselItemProps) {
             </p>
           </div>
           <p className="mb-4 line-clamp-4 text-pretty">{media.description}</p>
-          <Button size="lg" radius="full" className="bg-white" as={Link} href={href}>
+          <Button size="lg" radius="full" className="bg-white">
             Смотреть сейчас
           </Button>
         </div>

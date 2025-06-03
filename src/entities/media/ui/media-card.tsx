@@ -1,4 +1,4 @@
-import { slugify } from "transliteration"
+import slugify from "slugify"
 import { Link } from "@heroui/link"
 import { Skeleton } from "@heroui/skeleton"
 import type { Media } from "../model/types"
@@ -10,7 +10,12 @@ export type MediaCardProps = {
 }
 
 export function MediaCard({ media }: MediaCardProps) {
-  const href = `/watch/${media.id}-${slugify(media.title)}-smotret-online`
+  const slugTitle = slugify(media.title, {
+    lower: true,
+    strict: true,
+  })
+
+  const href = `/watch/${media.id}-${slugTitle}-smotret-online`
   const description = [media.year, ...media.genres.slice(0, 2)].join(", ")
 
   return (

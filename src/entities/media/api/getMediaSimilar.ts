@@ -1,6 +1,8 @@
+"use server"
+import "server-only"
+import sampleSize from "lodash/sampleSize"
 import { Media } from "../model/types"
 import { fetchMediaList, type FetchListResponse } from "./fetchMediaList"
-import sampleSize from "lodash/sampleSize"
 
 type Props = {
   media: Media

@@ -9,7 +9,7 @@ export type PersonInMedia = {
   id: number
   photo: string
   name: string
-  description: string
+  description: string | null
   profession: string // TODO: Добавить список возможных профессий
 }
 

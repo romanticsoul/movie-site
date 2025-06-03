@@ -1,3 +1,5 @@
+"use server"
+import "server-only"
 import { movieControllerSearchMovieV14 } from "../lib/kinopoisk/client"
 import {
   fetchMediaList,

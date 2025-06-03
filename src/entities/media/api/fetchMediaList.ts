@@ -1,7 +1,10 @@
+"use server"
+import "server-only"
 import { cache } from "react"
 import { movieControllerFindManyByQueryV14 } from "../lib/kinopoisk/client"
 import type { Media } from "../model/types"
 import { mapToMedia } from "./mapToMedia"
+import { DEFAULT_PARAMS } from "./config"
 
 export type FetchParams = NonNullable<
   Parameters<typeof movieControllerFindManyByQueryV14>[0]
@@ -14,23 +17,6 @@ export type FetchListResponse = {
 } | null
 
 const REVALIDATE = 172800 /* Обновление кеша каждые 48 часов */
-export const DEFAULT_PARAMS: FetchParams = {
-  page: 1,
-  limit: 20,
-  notNullFields: [
-    "rating.kp",
-    "genres.name",
-    "countries.name",
-    "poster.url",
-    "name",
-    "year",
-    "description",
-  ],
-  sortField: ["year", "rating.imdb", "votes.kp"],
-  sortType: ["-1", "-1", "-1"],
-  "rating.kp": ["1-10"],
-  "rating.imdb": ["1-10"],
-}
 
 export const fetchMediaList = cache(async (params: FetchParams) => {
   try {

@@ -35,7 +35,14 @@ export function MediaBreadcrumbs({ media }: MediaBreadcrumbsProps) {
         >
           {TYPE_TITLE[media.type]}
         </BreadcrumbItem>
-        <BreadcrumbItem>{media.title}</BreadcrumbItem>
+        <BreadcrumbItem
+          className="flex-1"
+          classNames={{
+            item: "line-clamp-1 whitespace-normal",
+          }}
+        >
+          {media.title}
+        </BreadcrumbItem>
       </Breadcrumbs>
     </section>
   )
