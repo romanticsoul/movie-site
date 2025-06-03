@@ -1,6 +1,6 @@
 import Form, { type FormProps } from "next/form"
-import { Input, type InputProps } from "@heroui/input"
 import { cn } from "@heroui/theme"
+import { Input, type InputProps } from "@heroui/input"
 import { SubmitButton, type SubmitButtonProps } from "./submit-button"
 
 type OmitsFormProps = Omit<FormProps, "action">

@@ -1,46 +1,39 @@
-import { NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@heroui/navbar"
 import FocusLock from "react-focus-lock"
 import { Link } from "@heroui/link"
+import { NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@heroui/navbar"
+import { SearchForm } from "@/features/search-form"
+import { menu } from "../model/menu"
 
-export function MobileMenu() {
+type MobileMenuProps = {
+  onNavigate: () => void
+}
+
+export function MobileMenu({ onNavigate }: MobileMenuProps) {
   return (
     <>
       <NavbarMenuToggle className="md:hidden" />
-
-      <NavbarMenu className="px-4">
-        {/* 
-          TODO: Код обёрнут в один элемент <li/> (NavbarMenuItem) так компонент NavbarMenu не поддерживает работу 'as'
-          и является элементом '<ul/>' а для улучшения показателей Lighthouse, 
-          необходимо, чтобы в <ul/> или <ol/> были только компоненты списка <li/>
-        */}
-        <NavbarMenuItem>
+      <NavbarMenu className="overflow-y-scroll p-0">
+        <NavbarMenuItem className="container size-full border-x py-4">
           <FocusLock group="header-group">
-            <Link className="w-full" href="/movie" size="lg">
-              Фильмы
-            </Link>
-            <Link className="w-full" href="/tv-series" size="lg">
-              Сериалы
-            </Link>
-            <Link className="w-full" href="/cartoon" size="lg">
-              Мультфильмы
-            </Link>
-            <Link className="w-full" href="/animated-series" size="lg">
-              Мультсериалы
-            </Link>
-            <Link className="w-full" href="/anime" size="lg">
-              Аниме
-            </Link>
+            <SearchForm
+              onSubmit={onNavigate}
+              className="mb-4"
+              inputProps={{ placeholder: "Поиск по сайту" }}
+            />
+
+            {menu.map((item) => (
+              <Link
+                onPress={onNavigate}
+                key={item.slug}
+                href={item.slug}
+                className="h-14 w-full border-b"
+              >
+                {item.name}
+              </Link>
+            ))}
           </FocusLock>
         </NavbarMenuItem>
       </NavbarMenu>
     </>
-  )
-}
-
-function MenuLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link className="w-full" href={href} size="lg">
-      {children}
-    </Link>
   )
 }
