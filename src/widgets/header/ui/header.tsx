@@ -41,9 +41,11 @@ export function Header() {
         <NavigationMenu />
 
         <span className="hidden lg:block" />
-        <div className="col-span-2 hidden md:flex lg:col-span-1">
-          <SearchForm inputProps={{ placeholder: "Поиск по сайту" }} />
-        </div>
+
+        <SearchForm
+          inputProps={{ placeholder: "Поиск по сайту" }}
+          className="col-span-2 max-md:hidden lg:col-span-1"
+        />
 
         <MobileMenu isMenuOpen={isMenuOpen} onNavigate={() => setIsMenuOpen(false)} />
       </FocusLock>

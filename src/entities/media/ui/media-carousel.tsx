@@ -53,13 +53,17 @@ export function MediaCarousel(props: MediaCarouselProps) {
           </Button>
         </div>
       </div>
+      {/* grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 */}
       <div
         ref={emblaRef}
         className="container overflow-hidden border-x bg-background py-4"
       >
         <div className="flex gap-4">
           {props.items.map((media) => (
-            <div key={media.id} className="flex-shrink-0 basis-[calc(20%-12.5px)]">
+            <div
+              key={media.id}
+              className="flex-shrink-0 basis-[calc(50%-8px)] sm:basis-[calc(33%-7.5px)] md:basis-[calc(25%-12px)] lg:basis-[calc(20%-12.5px)]"
+            >
               <MediaCard media={media} />
             </div>
           ))}
