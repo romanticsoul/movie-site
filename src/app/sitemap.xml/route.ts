@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { prisma } from "@/shared/lib/prisma"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
-export async function generateMediaSitemaps() {
+async function generateMediaSitemaps() {
   const baseUrl = await getBaseUrl()
   const mediaCount = await prisma.media.count()
   const numberOfSitemaps = Math.ceil(mediaCount / 50000)
