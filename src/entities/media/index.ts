@@ -27,6 +27,8 @@ export { getMediaById } from "./api/getMediaById"
 export { getMediaSimilar } from "./api/getMediaSimilar"
 export { searchMediaByTitle } from "./api/searchMediaByTitle"
 
+export { createMediaSlug } from "./lib/createMediaSlug"
+
 export * from "./model/types"
 export * from "./model/constants"
 export * from "./model/media-collections"

@@ -1,15 +1,14 @@
 import type { MetadataRoute } from "next"
+import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
-export default function robots(): MetadataRoute.Robots {
-  const venv = process.env.VERCEL_ENV
-  const vurl = process.env.VERCEL_URL
-  const url = venv === "development" ? `http://${vurl}` : `https://${vurl}`
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const baseUrl = await getBaseUrl()
 
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${url}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml`,
   }
 }

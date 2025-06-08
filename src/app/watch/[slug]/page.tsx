@@ -8,15 +8,18 @@ import {
   MediaList,
   type Media,
   getMediaById,
+  createMediaSlug,
   getMediaSimilar,
   MediaListSkeleton,
 } from "@/entities/media"
+import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
+  const baseUrl = await getBaseUrl()
   const params = await props.params
   const kinopoiskId = Number(params.slug.split("-")[0])
   const media = await getMediaById(kinopoiskId)
@@ -25,6 +28,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: `${media.title} (${media.year}) смотреть онлайн бесплатно`,
     description: media.description,
     category: media.type,
+    alternates: {
+      canonical: `${baseUrl}${createMediaSlug(media.id, media.title)}`,
+    },
   }
 }
 

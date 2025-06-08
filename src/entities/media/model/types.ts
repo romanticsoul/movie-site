@@ -43,4 +43,5 @@ export type Media = {
   countries: MediaCountry[]
   collections: string[]
   persons: PersonInMedia[]
+  updatedAt: Date
 }

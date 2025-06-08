@@ -6,6 +6,7 @@ import { MediaFilter } from "@/widgets/media-filter"
 import { MediaPagination } from "@/widgets/media-pagination"
 import { loadQueryParams, parseQueryToFetchParams } from "@/entities/query-params"
 import { collections, MediaList } from "@/entities/media"
+import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
 type Props = {
   params: Promise<{ collection: string }>
@@ -13,14 +14,21 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
+  const baseUrl = await getBaseUrl()
   const params = await props.params
-  const pageData = collections.find((c) => c.slug === params.collection)
-  if (!pageData) notFound()
+  const queryParams = await loadQueryParams(props.searchParams)
+  const collection = collections.find((c) => c.slug === params.collection)
+
+  if (!collection) notFound()
+  const { page } = parseQueryToFetchParams(queryParams)
 
   return {
-    title: pageData.title,
-    description: pageData.description,
-    category: pageData.type,
+    title: collection.title,
+    description: collection.description,
+    category: collection.type,
+    alternates: {
+      canonical: `${baseUrl}/${collection.slug}${page && page > 1 ? `?page=${page}` : ""}`,
+    },
   }
 }
 

@@ -2,11 +2,17 @@ import type { Metadata } from "next"
 import { MainCarousel } from "@/widgets/main-carousel"
 import { Link } from "@heroui/link"
 import { collections, MediaCarousel } from "@/entities/media"
+import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
-export const metadata: Metadata = {
-  title: "LORDFILM - смотрите фильмы и сериалы онлайн бесплатно в хорошем качестве",
-  description:
-    "Бесплатно смотрите тысячи фильмов, сериалов, мультфильмов и аниме: от культовых хитов до свежих новинок. Находите уникальные истории для любого настроения",
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "LORDFILM - смотрите фильмы и сериалы онлайн бесплатно в хорошем качестве",
+    description:
+      "Бесплатно смотрите тысячи фильмов, сериалов, мультфильмов и аниме: от культовых хитов до свежих новинок. Находите уникальные истории для любого настроения",
+    alternates: {
+      canonical: await getBaseUrl(),
+    },
+  }
 }
 
 export default async function Home() {

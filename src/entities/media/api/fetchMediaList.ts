@@ -39,25 +39,3 @@ export const fetchMediaList = cache(async (params: FetchParams) => {
     return null
   }
 })
-
-// export async function getMediaList(params: FetchParams): Promise<FetchListResponse> {
-//   try {
-//     const response = await movieControllerFindManyByQueryV14(
-//       { ...DEFAULT_PARAMS, ...params },
-//       {
-//         cache: "force-cache",
-//         next: { revalidate: REVALIDATE }, // Обновление кеша каждые 48 часов
-//       },
-//     )
-//     if (!response.ok) return null
-//     return {
-//       page: response.data.page,
-//       totalPages: response.data.pages,
-//       items: response.data.docs.map((i) => mapToMedia(i)),
-//     }
-//   } catch (error) {
-//     if (error instanceof Error) console.log("Ошибка запроса:", error.message)
-//     else console.log("Неизвестная ошибка:", error)
-//     return null
-//   }
-// }

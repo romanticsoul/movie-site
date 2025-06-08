@@ -3,11 +3,19 @@ import type { Metadata } from "next"
 import { SearchWithFilter } from "@/widgets/search-with-filter"
 import { searchMediaByTitle, MediaList } from "@/entities/media"
 import { loadQueryParams, parseQueryToFetchParams } from "@/entities/query-params"
+import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
-export const metadata: Metadata = {
-  title: "Поиск по коллекции",
-  description:
-    "Бесплатно смотрите тысячи фильмов, сериалов, мультфильмов и аниме: от культовых хитов до свежих новинок. Находите уникальные истории для любого настроения",
+export async function generateMetadata(): Promise<Metadata> {
+  const baseUrl = await getBaseUrl()
+
+  return {
+    title: "Найдите любимый фильмы и смотрите его онлайн бесплатно",
+    description:
+      "Бесплатно смотрите тысячи фильмов, сериалов, мультфильмов и аниме: от культовых хитов до свежих новинок. Находите уникальные истории для любого настроения",
+    alternates: {
+      canonical: `${baseUrl}/search`,
+    },
+  }
 }
 
 type Props = {

@@ -1,7 +1,7 @@
-import slugify from "slugify"
 import { Link } from "@heroui/link"
 import { Skeleton } from "@heroui/skeleton"
 import type { Media } from "../model/types"
+import { createMediaSlug } from "../lib/createMediaSlug"
 import { MediaPoster, MediaPosterSkeleton } from "./media-poster"
 import { MediaRatingChip } from "./media-rating-chip"
 
@@ -10,17 +10,11 @@ export type MediaCardProps = {
 }
 
 export function MediaCard({ media }: MediaCardProps) {
-  const slugTitle = slugify(media.title, {
-    lower: true,
-    strict: true,
-  })
-
-  const href = `/watch/${media.id}-${slugTitle}-smotret-online`
   const description = [media.year, ...media.genres.slice(0, 2)].join(", ")
 
   return (
     <Link
-      href={href}
+      href={createMediaSlug(media.id, media.title)}
       className="flex select-none flex-col items-start self-start rounded-large"
       title={media.title}
     >

@@ -37,6 +37,7 @@ export function mapToMedia(movie: MovieDtoV14): Media {
     countries: movie.countries?.map((c) => c.name as MediaCountry) || [],
     collections: movie.lists ?? [],
     persons: movie.persons ? mapPersonInMedia(movie.persons) : [],
+    updatedAt: new Date(movie.updatedAt!),
   }
 }
 
