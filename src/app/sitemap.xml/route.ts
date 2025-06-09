@@ -8,7 +8,7 @@ async function generateMediaSitemaps() {
   const numberOfSitemaps = Math.ceil(mediaCount / 50000)
   return Array.from({ length: numberOfSitemaps }, (_, index) => ({
     id: index,
-    url: `${baseUrl}/watch/${index}.xml`,
+    url: `${baseUrl}/watch/sitemap/${index}.xml`,
   }))
 }
 
