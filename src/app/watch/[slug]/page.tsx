@@ -4,26 +4,24 @@ import { notFound } from "next/navigation"
 import { MediaBreadcrumbs } from "@/widgets/media-breadcrumbs"
 import { MediaDetails } from "@/widgets/media-details"
 import { MediaPlayer, MediaPlayerSkeleton } from "@/widgets/media-player"
-import {
-  MediaList,
-  type Media,
-  getMediaById,
-  createMediaSlug,
-  getMediaSimilar,
-  MediaListSkeleton,
-} from "@/entities/media"
+import { MediaList, MediaListSkeleton } from "@/entities/media"
+import type { MediaFull } from "@/entities/media"
+import { getMediaById, createMediaSlug, getMediaSimilar } from "@/entities/media"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
+// METADATA
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const baseUrl = await getBaseUrl()
   const params = await props.params
   const kinopoiskId = Number(params.slug.split("-")[0])
   const media = await getMediaById(kinopoiskId)
+
   if (!media) notFound()
+
   return {
     title: `${media.title} (${media.year}) смотреть онлайн бесплатно`,
     description: media.description,
@@ -34,10 +32,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
+// PAGE
 export default async function ContentPage(props: Props) {
   const params = await props.params
   const kinopoiskId = Number(params.slug.split("-")[0])
   const media = await getMediaById(kinopoiskId)
+
   if (!media) notFound()
 
   return (
@@ -54,7 +54,7 @@ export default async function ContentPage(props: Props) {
   )
 }
 
-async function SimilarList({ media }: { media: Media }) {
+async function SimilarList({ media }: { media: MediaFull }) {
   const similar = await getMediaSimilar({ media, count: 5 })
   return <MediaList title="Смотрите также" response={similar} />
 }

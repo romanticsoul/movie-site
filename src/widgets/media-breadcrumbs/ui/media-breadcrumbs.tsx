@@ -1,17 +1,17 @@
 "use client"
 
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/breadcrumbs"
-import type { Media, MediaType } from "@/entities/media"
+import type { MediaFull } from "@/entities/media"
 
 type MediaBreadcrumbsProps = {
-  media: Media
+  media: MediaFull
 }
 
-const TYPE_TITLE: Record<MediaType, string> = {
+const TYPE_TITLE: Record<MediaFull["type"], string> = {
   movie: "Фильмы",
-  "tv-series": "Сериалы",
+  tv_series: "Сериалы",
   cartoon: "Мультфильмы",
-  "animated-series": "Анимационные сериалы",
+  animated_series: "Анимационные сериалы",
   anime: "Аниме",
 }
 

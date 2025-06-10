@@ -1,7 +1,7 @@
 import type { SearchParams } from "nuqs"
 import type { Metadata } from "next"
 import { SearchWithFilter } from "@/widgets/search-with-filter"
-import { searchMediaByTitle, MediaList } from "@/entities/media"
+import { getMediaByTitle, MediaList } from "@/entities/media"
 import { loadQueryParams, parseQueryToFetchParams } from "@/entities/query-params"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
@@ -27,7 +27,7 @@ export default async function SearchPage(props: Props) {
 
   const appliedParams = parseQueryToFetchParams(queryParams)
 
-  const data = await searchMediaByTitle({
+  const data = await getMediaByTitle({
     query: queryParams.q,
     params: appliedParams,
   })

@@ -17,8 +17,6 @@ export default async function sitemap({
 }): Promise<MetadataRoute.Sitemap> {
   const baseUrl = await getBaseUrl()
 
-  console.log(id)
-
   const mediaList = await prisma.media.findMany({
     skip: id * 50000,
     take: 50000,

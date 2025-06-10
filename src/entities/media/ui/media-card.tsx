@@ -1,16 +1,17 @@
 import { Link } from "@heroui/link"
 import { Skeleton } from "@heroui/skeleton"
-import type { Media } from "../model/types"
+import type { MediaCompact } from "../model/types"
 import { createMediaSlug } from "../lib/createMediaSlug"
 import { MediaPoster, MediaPosterSkeleton } from "./media-poster"
 import { MediaRatingChip } from "./media-rating-chip"
 
 export type MediaCardProps = {
-  media: Media
+  media: MediaCompact
 }
 
 export function MediaCard({ media }: MediaCardProps) {
-  const description = [media.year, ...media.genres.slice(0, 2)].join(", ")
+  const genres = media.Genre.map((g) => g.name).slice(0, 2)
+  const description = [media.year, ...genres].join(", ")
 
   return (
     <Link
@@ -18,10 +19,10 @@ export function MediaCard({ media }: MediaCardProps) {
       className="flex select-none flex-col items-start self-start rounded-large"
       title={media.title}
     >
-      <MediaPoster src={media.images.poster} alt={media.title} />
+      <MediaPoster src={media.poster} alt={media.title} />
       <MediaRatingChip
         size="sm"
-        rating={media.rating.kp}
+        rating={media.rating_kp}
         className="absolute right-1 top-1 z-10"
       />
       <div className="grid w-full p-2">

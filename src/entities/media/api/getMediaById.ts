@@ -1,23 +1,25 @@
 "use server"
 import "server-only"
 import { cache } from "react"
-import { movieControllerFindOneV14 } from "../lib/kinopoisk/client"
-import { mapToMedia } from "./mapToMedia"
+import { unstable_cache } from "next/cache"
+import { prisma } from "@/shared/lib/prisma"
+import { MediaFull } from "../model/types"
 
-export const getMediaById = cache(async (id: number) => {
-  try {
-    const response = await movieControllerFindOneV14(id, {
-      cache: "force-cache",
-      next: {
-        revalidate: 172800,
+async function getDataById(id: number): Promise<MediaFull | null> {
+  return prisma.media.findUnique({
+    where: { id: id },
+    include: {
+      Genre: true,
+      Country: true,
+      PersonInMedia: {
+        include: {
+          Person: true,
+        },
       },
-    })
-    if (!response.ok) return null
+    },
+  })
+}
 
-    return mapToMedia(response.data)
-  } catch (error) {
-    if (error instanceof Error) console.log("Ошибка запроса:", error.message)
-    else console.log("Неизвестная ошибка:", error)
-    return null
-  }
-})
+export const getMediaById = cache(
+  unstable_cache(getDataById, [], { revalidate: 2580000 }),
+)

@@ -1,22 +1,8 @@
-import Image from "next/image"
+import Image, { type ImageProps } from "next/image"
 import { cn } from "@heroui/theme"
 import { Skeleton } from "@heroui/skeleton"
 
-export type MediaPosterProps = {
-  src: string
-  alt: string
-  loading?: "lazy" | "eager"
-  priority?: boolean
-  className?: string
-}
-
-export function MediaPoster({
-  src,
-  alt,
-  className,
-  loading = "lazy",
-  priority = false,
-}: MediaPosterProps) {
+export function MediaPoster({ className, alt, ...props }: ImageProps) {
   return (
     <div
       className={cn(
@@ -26,12 +12,10 @@ export function MediaPoster({
     >
       <Image
         fill
-        priority={priority}
-        src={src}
-        loading={loading}
-        sizes="50vw" // TODO: Адаптировать под размер маленьких экранов
         alt={alt}
-        className="object-cover"
+        className={cn("object-cover")}
+        sizes="15vw" // TODO: Адаптировать под размер маленьких экранов
+        {...props}
       />
     </div>
   )

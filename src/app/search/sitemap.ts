@@ -13,11 +13,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: baseUrl,
-      lastModified: `2025-06-08`,
+      lastModified: `2025-06-11`,
     },
     {
       url: `${baseUrl}/search`,
-      lastModified: `2025-06-08`,
+      lastModified: `2025-06-11`,
     },
     ...sitemaps,
   ]
@@ -27,15 +27,16 @@ async function generateCollectionSitemap(
   collection: (typeof collections)[number],
 ): Promise<MetadataRoute.Sitemap> {
   const data = await collection.getMedia({
-    sortField: ["updatedAt"],
-    sortType: ["-1"],
+    orderBy: {
+      updated_at: "desc",
+    },
   })
   if (!data) return []
-  const { items, totalPages } = data
+  const { result, totalPages } = data
   const baseUrl = await getBaseUrl()
 
   return Array.from({ length: totalPages }, (_, i) => ({
     url: `${baseUrl}/${collection.slug}?page=${i + 1}`,
-    lastModified: items[0].updatedAt,
+    lastModified: result[0].updated_at,
   }))
 }

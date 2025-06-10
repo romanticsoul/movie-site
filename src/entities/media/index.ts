@@ -1,10 +1,6 @@
 export { MediaCard, MediaCardSkeleton, type MediaCardProps } from "./ui/media-card"
 export { MediaList, MediaListSkeleton, type MediaListProps } from "./ui/media-list"
-export {
-  MediaPoster,
-  MediaPosterSkeleton,
-  type MediaPosterProps,
-} from "./ui/media-poster"
+export { MediaPoster, MediaPosterSkeleton } from "./ui/media-poster"
 export {
   MediaAgeChip,
   MediaAgeChipSkeleton,
@@ -17,15 +13,11 @@ export {
   type MediaRatingChipProps,
 } from "./ui/media-rating-chip"
 
-export {
-  fetchMediaList,
-  type FetchParams,
-  type FetchListResponse,
-} from "./api/fetchMediaList"
-export { DEFAULT_PARAMS } from "./api/config"
+export { getAllMedia } from "./api/getAllMedia"
+export { getMedia, type GetMediaParams, type GetMediaResponse } from "./api/getMedia"
 export { getMediaById } from "./api/getMediaById"
 export { getMediaSimilar } from "./api/getMediaSimilar"
-export { searchMediaByTitle } from "./api/searchMediaByTitle"
+export { getMediaByTitle } from "./api/getMediaByTitle"
 
 export { createMediaSlug } from "./lib/createMediaSlug"
 

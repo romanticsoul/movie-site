@@ -1,11 +1,11 @@
 import range from "lodash/range"
 import { Skeleton } from "@heroui/skeleton"
-import { FetchListResponse } from "../api/fetchMediaList"
+import { GetMediaResponse } from "../api/getMedia"
 import { MediaCard, MediaCardSkeleton } from "./media-card"
 
 export type MediaListProps = {
   title: React.ReactNode
-  response: FetchListResponse
+  response: GetMediaResponse
 }
 
 export function MediaList({ title, response }: MediaListProps) {
@@ -13,10 +13,10 @@ export function MediaList({ title, response }: MediaListProps) {
     <section className="container border-x bg-background py-8">
       <h2 className="mb-6 text-2xl font-bold">{title}</h2>
       {!response && <ServerError />}
-      {response && !response.items.length && <EmptyList />}
-      {response && response.items.length && (
+      {response && !response.result.length && <EmptyList />}
+      {response && response.result.length && (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {response.items.map((media) => (
+          {response.result.map((media) => (
             <MediaCard key={media.id} media={media} />
           ))}
         </div>
@@ -56,13 +56,3 @@ function ServerError() {
 function EmptyList() {
   return <section className="container border-x bg-background py-16">Не найдено</section>
 }
-
-// export function MediaListSkeleton() {
-//   return (
-//     <div className="grid grid-cols-5 gap-4">
-//       {items.map((media) => (
-//         <MediaCardSkeleton key={media.id} media={media} />
-//       ))}
-//     </div>
-//   )
-// }

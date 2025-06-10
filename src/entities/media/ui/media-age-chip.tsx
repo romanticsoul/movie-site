@@ -1,9 +1,9 @@
 import { Chip, type ChipProps } from "@heroui/chip"
-import { Media } from "../model/types"
 import { Skeleton } from "@heroui/skeleton"
+import type { MediaFull } from "../model/types"
 
 export type MediaAgeChipProps = ChipProps & {
-  age: Media["rating"]["age"]
+  age: MediaFull["rating_age"]
 }
 
 export function MediaAgeChip({ age, ...props }: MediaAgeChipProps) {
