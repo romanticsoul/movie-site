@@ -1,8 +1,8 @@
 "use client"
 
 import { Select, SelectItem, type SelectProps } from "@heroui/select"
-import { GENRES } from "@/entities/media"
 import { YEARS, SORTING, useQueryParams } from "@/entities/query-params"
+import type { MediaFull } from "@/entities/media"
 import type { QueryParams } from "@/entities/query-params"
 
 type OmitSelectProps = Omit<
@@ -10,8 +10,18 @@ type OmitSelectProps = Omit<
   "name" | "label" | "onChange" | "selectedKeys" | "children"
 >
 
-export function GenreSelect(props: OmitSelectProps) {
-  return <FilterSelect name="genre" label="Выберите жанр" options={GENRES} {...props} />
+export function GenreSelect(props: OmitSelectProps & { mediaType?: MediaFull["type"] }) {
+  // {
+  //   where: {
+  //     Media: {
+  //       every: { type: props.mediaType },
+  //     },
+  //   },
+  // }
+
+  // const options = genres.map((g) => ({ name: g.name, slug: g.id.toString() }))
+
+  return <FilterSelect name="genre" label="Выберите жанр" options={SORTING} {...props} />
 }
 
 export function SortSelect(props: OmitSelectProps) {

@@ -11,16 +11,16 @@ import { useCallback } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import useEmblaCarousel from "embla-carousel-react"
 import { Button } from "@heroui/button"
-import type { Media } from "../model/types"
+import type { MediaCompact } from "../model/types"
 import { MediaCard } from "./media-card"
 
 export type MediaCarouselProps = {
-  items: Media[]
+  items: MediaCompact[]
   titleSlot?: React.ReactNode
 }
 
 export function MediaCarousel(props: MediaCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", watchDrag: false })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" })
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -53,7 +53,6 @@ export function MediaCarousel(props: MediaCarouselProps) {
           </Button>
         </div>
       </div>
-      {/* grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 */}
       <div
         ref={emblaRef}
         className="container overflow-hidden border-x bg-background py-4"

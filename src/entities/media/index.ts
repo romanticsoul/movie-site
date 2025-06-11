@@ -22,5 +22,4 @@ export { getMediaByTitle } from "./api/getMediaByTitle"
 export { createMediaSlug } from "./lib/createMediaSlug"
 
 export * from "./model/types"
-export * from "./model/constants"
 export * from "./model/media-collections"

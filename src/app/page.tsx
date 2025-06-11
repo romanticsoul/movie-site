@@ -15,19 +15,23 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+export const revalidate = 86400
+
 export default async function Home() {
   const mainCollections = await collections.filter((c) => !c.parentSlug)
 
-  const getItems = async function (coll: (typeof mainCollections)[number]) {
-    const data = await coll.getMedia()
-    return data?.items || []
-  }
+  const itemsList = await Promise.all(
+    mainCollections.map(async (coll) => {
+      const data = await coll.getMedia()
+      return data?.result || []
+    }),
+  )
 
   return (
     <>
       <MainCarousel />
 
-      {mainCollections.map(async (collection) => (
+      {mainCollections.map(async (collection, i) => (
         <MediaCarousel
           key={collection.slug}
           titleSlot={
@@ -40,7 +44,7 @@ export default async function Home() {
               </Link>
             </h2>
           }
-          items={await getItems(collection)}
+          items={itemsList[i]}
         />
       ))}
     </>
