@@ -1,9 +1,9 @@
 import { Chip } from "@heroui/chip"
 import { Link } from "@heroui/link"
-import { collections, type MediaType } from "@/entities/media"
+import { collections, type MediaFull } from "@/entities/media"
 
 export type MediaCollectionChipsProps = {
-  type: MediaType
+  type: MediaFull["type"]
   slug: string
 }
 

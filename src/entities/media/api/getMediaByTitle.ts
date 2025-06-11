@@ -1,6 +1,5 @@
 "use server"
 import "server-only"
-import merge from "lodash/merge"
 import { getMedia, type GetMediaParams } from "./getMedia"
 
 type Props = {
@@ -22,5 +21,8 @@ export async function getMediaByTitle(props: Props) {
     orderBy: [{ votes_imdb: "desc" }, { votes_kp: "desc" }, { votes_tmdb: "desc" }],
   }
 
-  return getMedia(merge(props.params, params))
+  return getMedia({
+    ...params,
+    ...props.params,
+  })
 }

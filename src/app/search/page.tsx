@@ -1,7 +1,13 @@
 import type { SearchParams } from "nuqs"
 import type { Metadata } from "next"
+import { MediaPagination } from "@/widgets/media-pagination"
 import { SearchWithFilter } from "@/widgets/search-with-filter"
-import { getMediaByTitle, MediaList } from "@/entities/media"
+import {
+  getMediaByTitle,
+  getMedia,
+  MediaList,
+  type GetMediaResponse,
+} from "@/entities/media"
 import { loadQueryParams, parseQueryToFetchParams } from "@/entities/query-params"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
@@ -27,10 +33,15 @@ export default async function SearchPage(props: Props) {
 
   const appliedParams = parseQueryToFetchParams(queryParams)
 
-  const data = await getMediaByTitle({
-    query: queryParams.q,
-    params: appliedParams,
-  })
+  let data: GetMediaResponse
+  if (queryParams.q) {
+    data = await getMediaByTitle({
+      query: queryParams.q,
+      params: appliedParams,
+    })
+  } else {
+    data = await getMedia(appliedParams)
+  }
 
   return (
     <>
@@ -42,7 +53,15 @@ export default async function SearchPage(props: Props) {
         </p>
       </section>
       <SearchWithFilter />
-      <MediaList title="Результат поиска" response={data} />
+      <MediaList
+        title={
+          queryParams.q
+            ? `Результат поиска по запросу «${queryParams.q}»`
+            : "Наша коллекция"
+        }
+        response={data}
+      />
+      {data && <MediaPagination page={data.page} total={data.totalPages} />}
     </>
   )
 }
