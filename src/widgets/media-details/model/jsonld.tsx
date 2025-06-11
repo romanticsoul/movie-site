@@ -28,8 +28,8 @@ export function MediaJsonLdSchema({ media }: { media: MediaFull }) {
       worstRating: 0,
       ratingCount: media.votes_kp,
     },
-    ...(media.created_at && { datePublished: media.created_at }),
-    ...(media.updated_at && { dateModified: media.updated_at }),
+    // ...(media.created_at && { datePublished: media.created_at.toISOString() }),
+    // ...(media.updated_at && { dateModified: media.updated_at.toISOString() }),
     ...(media.series_length && {
       duration: `PT${media.series_length}M`, // Формат ISO 8601 для длительности
     }),
