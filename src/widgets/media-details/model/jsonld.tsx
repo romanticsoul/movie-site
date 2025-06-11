@@ -1,4 +1,3 @@
-import Script from "next/script"
 import type { TVSeries } from "schema-dts"
 import type { MediaFull } from "@/entities/media"
 
@@ -36,12 +35,11 @@ export function MediaJsonLdSchema({ media }: { media: MediaFull }) {
   }
 
   return (
-    <Script
-      id={`${media.id}-schema`}
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
       }}
-    ></Script>
+    />
   )
 }
