@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { Roboto_Condensed } from "next/font/google"
 import { Header } from "@/widgets/header"
 import { Footer } from "@/widgets/footer"
+import { YandexMetrika } from "@/shared/lib/yandexMetrika"
 import { Providers } from "./providers"
 
 const fontSans = Roboto_Condensed({
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning lang="ru">
-      <head />
+      <head>
+        <YandexMetrika />
+      </head>
       <body
         className={clsx(
           "bg-pattern min-h-screen font-sans antialiased",
