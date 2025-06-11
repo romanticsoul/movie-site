@@ -1,11 +1,11 @@
 "use client"
 
 import useEmblaCarousel from "embla-carousel-react"
-import type { Media } from "@/entities/media"
 import { CarouselItem } from "./carousel-item"
+import { RandomMedia } from "../api/getRandomMedia"
 
 type CarouselContainerProps = {
-  items: Media[]
+  media: RandomMedia[]
 }
 
 export function CarouselContainer(props: CarouselContainerProps) {
@@ -14,7 +14,7 @@ export function CarouselContainer(props: CarouselContainerProps) {
   return (
     <div ref={emblaRef} className="overflow-hidden">
       <div className="flex">
-        {props.items.map((media) => (
+        {props.media.map((media) => (
           <CarouselItem key={media.id} media={media} />
         ))}
       </div>

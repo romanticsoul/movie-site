@@ -1,11 +1,12 @@
 import { GenreSelect, YearSelect, SortSelect } from "@/features/filter-selectors"
+import { MediaFull } from "@/entities/media"
 
-export function MediaFilter() {
+export function MediaFilter({ mediaType }: { mediaType?: MediaFull["type"] }) {
   return (
     <section className="border-y">
       <div className="container border-x bg-background py-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          <GenreSelect mediaType="tv_series" />
+          <GenreSelect mediaType={mediaType} />
           <YearSelect />
           <span className="col-span-2 hidden lg:block" />
           <SortSelect />

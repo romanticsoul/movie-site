@@ -2,27 +2,12 @@
 
 import { Select, SelectItem, type SelectProps } from "@heroui/select"
 import { YEARS, SORTING, useQueryParams } from "@/entities/query-params"
-import type { MediaFull } from "@/entities/media"
 import type { QueryParams } from "@/entities/query-params"
 
-type OmitSelectProps = Omit<
+export type OmitSelectProps = Omit<
   SelectProps,
   "name" | "label" | "onChange" | "selectedKeys" | "children"
 >
-
-export function GenreSelect(props: OmitSelectProps & { mediaType?: MediaFull["type"] }) {
-  // {
-  //   where: {
-  //     Media: {
-  //       every: { type: props.mediaType },
-  //     },
-  //   },
-  // }
-
-  // const options = genres.map((g) => ({ name: g.name, slug: g.id.toString() }))
-
-  return <FilterSelect name="genre" label="Выберите жанр" options={SORTING} {...props} />
-}
 
 export function SortSelect(props: OmitSelectProps) {
   return <FilterSelect name="sort" label="Сортировать" options={SORTING} {...props} />
@@ -33,13 +18,15 @@ export function YearSelect(props: OmitSelectProps) {
 }
 
 /** */
+export type SelectOption = { name: string; slug: string }
+
 type FilterSelectProps<T extends keyof QueryParams> = OmitSelectProps & {
   name: T
   label: string
-  options: readonly { name: string; slug: string }[]
+  options: readonly SelectOption[]
 }
 
-function FilterSelect<T extends keyof QueryParams>({
+export function FilterSelect<T extends keyof QueryParams>({
   name,
   label,
   options,

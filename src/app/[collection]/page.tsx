@@ -56,7 +56,7 @@ export default async function CollectionPage(props: Props) {
           {collection.description}
         </p>
       </section>
-      <MediaFilter />
+      <MediaFilter mediaType={collection.type} />
       <MediaCollectionChips type={collection.type} slug={params.collection} />
       <MediaList title="Наша коллекция" response={data} />
       {data && <MediaPagination page={data.page} total={data.totalPages} />}
