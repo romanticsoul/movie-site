@@ -27,7 +27,7 @@ export async function GET() {
 
   return new NextResponse(sitemapIndexXML, {
     headers: {
-      "Content-Type": "application/xml",
+      "Content-Type": "text/xml; charset=UTF-8",
     },
   })
 }
