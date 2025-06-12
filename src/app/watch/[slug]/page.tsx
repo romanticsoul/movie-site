@@ -32,6 +32,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const iframes = await getKinoboxPlayers({
     search: { kinopoisk: String(kinopoiskId) },
   })
+  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
 
   return {
     title: title,
@@ -48,6 +49,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       videos: iframes.map((i) => ({
         url: i.iframeUrl,
         type: "text/html",
+        duration: mediaLength,
       })),
       description: cleanText(media.description),
       siteName: "LORDFILM",
@@ -69,11 +71,8 @@ export default async function ContentPage(props: Props) {
 
   if (!media) notFound()
 
-  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
-
   return (
     <>
-      <meta property="video:duration" content={mediaLength.toString()} />
       <MediaBreadcrumbsSchema media={media} />
       <MediaBreadcrumbs media={media} />
       <MediaDetails media={media} />
