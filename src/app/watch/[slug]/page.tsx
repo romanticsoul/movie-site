@@ -33,9 +33,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     search: { kinopoisk: String(kinopoiskId) },
   })
 
-  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
-
-  // необходимо дополнительно указать поля: , ya:ovs:upload_date, ya:ovs:adult, video:duration
   return {
     title: title,
     category: media.type,
@@ -60,7 +57,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       "ya:ovs:upload_date": `${media.created_at}`,
       "ya:ovs:adult": (media.rating_age ?? 0) >= 18 ? "true" : "false",
       "ya:ovs:allow_embed": "true",
-      "video:duration": mediaLength,
     },
   }
 }
@@ -73,8 +69,11 @@ export default async function ContentPage(props: Props) {
 
   if (!media) notFound()
 
+  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
+
   return (
     <>
+      <meta property="video:duration" content={mediaLength.toString()} />
       <MediaBreadcrumbsSchema media={media} />
       <MediaBreadcrumbs media={media} />
       <MediaDetails media={media} />
