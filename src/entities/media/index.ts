@@ -21,5 +21,6 @@ export { getMediaByTitle } from "./api/getMediaByTitle"
 
 export { createMediaSlug } from "./lib/createMediaSlug"
 
-export * from "./model/types"
 export * from "./model/media-collections"
+export * from "./model/media-type-labels"
+export * from "./model/types"

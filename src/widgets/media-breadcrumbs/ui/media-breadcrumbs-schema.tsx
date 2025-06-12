@@ -2,9 +2,16 @@ import type { MediaFull } from "@/entities/media"
 import { BreadcrumbList } from "schema-dts"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 import { createMediaSlug } from "@/entities/media"
-import { TYPE_TITLE } from "./media-breadcrumbs"
 
-export async function BreadcrumbsSchema({ media }: { media: MediaFull }) {
+export const TYPE_TITLE: Record<MediaFull["type"], string> = {
+  movie: "Фильмы",
+  tv_series: "Сериалы",
+  cartoon: "Мультфильмы",
+  animated_series: "Анимационные сериалы",
+  anime: "Аниме",
+}
+
+export async function MediaBreadcrumbsSchema({ media }: { media: MediaFull }) {
   const baseUrl = await getBaseUrl()
 
   const schema: BreadcrumbList = {
