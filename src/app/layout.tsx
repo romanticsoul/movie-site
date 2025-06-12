@@ -14,7 +14,7 @@ const fontSans = Roboto_Condensed({
 
 export const metadata: Metadata = {
   other: {
-    "yandex-verification": "21c2bd8cacaa7eda",
+    "yandex-verification": "fee276076d6744d2",
     "google-site-verification": "OtU_ylFanZTuvO824j7opg05uqmOsbxKC6mrfcsnf-Y",
   },
 }
