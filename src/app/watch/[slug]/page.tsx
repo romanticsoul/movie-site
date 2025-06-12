@@ -1,4 +1,3 @@
-import { Fragment } from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -30,6 +29,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${baseUrl}${createMediaSlug(media.id, media.title)}`
   const title = `${media.title} (${media.year}) смотреть онлайн бесплатно`
+  const iframes = await getKinoboxPlayers({
+    search: { kinopoisk: String(kinopoiskId) },
+  })
 
   return {
     title: title,
@@ -38,6 +40,20 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     keywords: generateKeywords(media),
     alternates: {
       canonical: url,
+    },
+    openGraph: {
+      type: "website",
+      url: url,
+      title: title,
+      videos: iframes.map((i) => ({
+        url: i.iframeUrl,
+        type: "text/html",
+        width: 1120,
+        height: 780,
+      })),
+      description: cleanText(media.description),
+      siteName: "LORDFILM",
+      images: [{ url: media.poster }],
     },
   }
 }
@@ -52,7 +68,6 @@ export default async function ContentPage(props: Props) {
 
   return (
     <>
-      <YandexMetadata media={media} />
       <MediaBreadcrumbsSchema media={media} />
       <MediaBreadcrumbs media={media} />
       <MediaDetails media={media} />
@@ -69,48 +84,6 @@ export default async function ContentPage(props: Props) {
 async function SimilarList({ media }: { media: MediaFull }) {
   const similar = await getMediaSimilar({ media, count: 5 })
   return <MediaList title="Смотрите также" response={similar} />
-}
-
-async function YandexMetadata({ media }: { media: MediaFull }) {
-  const baseUrl = await getBaseUrl()
-  const url = `${baseUrl}${createMediaSlug(media.id, media.title)}`
-  const iframes = await getKinoboxPlayers({
-    search: { kinopoisk: String(media.id) },
-  })
-
-  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
-  const isAdult = (media.rating_age ?? 0) >= 18 ? true : false
-
-  return (
-    <>
-      {/* OpenGraph */}
-      <meta property="og:type" content="video.other" />
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={media.title + " смотреть онлайн"} />
-      <meta property="og:description" content={cleanText(media.description)} />
-      <meta property="og:site_name" content="LORDFILM" />
-      <meta property="og:image" content={media.poster} />
-      <meta property="video:duration" content={`${mediaLength}`} />
-
-      {/* OpenGraph Video */}
-      {iframes.map((iframe, idx) => (
-        <Fragment key={idx}>
-          <meta property="og:video" content={iframe.iframeUrl} />
-          <meta property="og:video:type" content="text/html" />
-          <meta property="og:video:width" content="1120" />
-          <meta property="og:video:height" content="780" />
-        </Fragment>
-      ))}
-
-      {/* Yandex Video Extensions */}
-      <meta
-        property="ya:ovs:upload_date"
-        content={new Date(media.created_at).toISOString()}
-      />
-      <meta property="ya:ovs:adult" content={`${isAdult}`} />
-      <meta property="ya:ovs:allow_embed" content="true" />
-    </>
-  )
 }
 
 // UTILS
