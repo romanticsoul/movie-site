@@ -1,6 +1,5 @@
 import "./globals.css"
 import clsx from "clsx"
-import type { Metadata } from "next"
 import { Roboto_Condensed } from "next/font/google"
 import { Header } from "@/widgets/header"
 import { Footer } from "@/widgets/footer"
@@ -11,13 +10,6 @@ const fontSans = Roboto_Condensed({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 })
-
-export const metadata: Metadata = {
-  other: {
-    "yandex-verification": "fee276076d6744d2",
-    "google-site-verification": "OtU_ylFanZTuvO824j7opg05uqmOsbxKC6mrfcsnf-Y",
-  },
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
