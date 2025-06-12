@@ -1,3 +1,7 @@
+"use server"
+import "server-only"
+import { cache } from "react"
+
 type KinoboxConfig = {
   baseUrl?: string
   players?: Record<string, PlayerConfig>
@@ -58,7 +62,7 @@ const defaultTranslations: Record<string, number> = {
   украин: 1234,
 }
 
-export async function getKinoboxPlayers(config: KinoboxConfig): Promise<KinoboxPlayer[]> {
+async function getPlayers(config: KinoboxConfig): Promise<KinoboxPlayer[]> {
   const settings = {
     baseUrl: config.baseUrl || "https://kinobox.tv/",
     players: config.players || {},
@@ -109,3 +113,5 @@ export async function getKinoboxPlayers(config: KinoboxConfig): Promise<KinoboxP
   config.events?.playerLoaded?.(filtered.length > 0, filtered)
   return filtered
 }
+
+export const getKinoboxPlayers = cache(getPlayers)

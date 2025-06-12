@@ -3,7 +3,11 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { MediaBreadcrumbs, MediaBreadcrumbsSchema } from "@/widgets/media-breadcrumbs"
 import { MediaDetails } from "@/widgets/media-details"
-import { MediaPlayer, MediaPlayerSkeleton } from "@/widgets/media-player"
+import {
+  MediaPlayer,
+  MediaPlayerSkeleton,
+  getKinoboxPlayers,
+} from "@/widgets/media-player"
 import { MediaList, MediaListSkeleton } from "@/entities/media"
 import type { MediaFull } from "@/entities/media"
 import { getMediaById, createMediaSlug, getMediaSimilar } from "@/entities/media"
@@ -25,7 +29,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${baseUrl}${createMediaSlug(media.id, media.title)}`
   const title = `${media.title} (${media.year}) смотреть онлайн бесплатно`
+  const iframes = await getKinoboxPlayers({
+    search: { kinopoisk: String(kinopoiskId) },
+  })
 
+  const mediaLength = (media.movie_length ?? media.series_length ?? 120) * 60
+
+  // необходимо дополнительно указать поля: , ya:ovs:upload_date, ya:ovs:adult, video:duration
   return {
     title: title,
     category: media.type,
@@ -35,12 +45,22 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       canonical: url,
     },
     openGraph: {
-      type: "video.movie",
+      type: "video.other",
       url: url,
       title: title,
-      description: media.description,
+      videos: iframes.map((i) => ({
+        url: i.iframeUrl,
+        type: "text/html",
+      })),
+      description: cleanText(media.description),
       siteName: "LORDFILM",
       images: [{ url: media.poster }],
+    },
+    other: {
+      "ya:ovs:upload_date": `${media.created_at}`,
+      "ya:ovs:adult": (media.rating_age ?? 0) >= 18 ? "true" : "false",
+      "ya:ovs:allow_embed": "true",
+      "video:duration": mediaLength,
     },
   }
 }
