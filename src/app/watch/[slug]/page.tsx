@@ -3,11 +3,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { MediaBreadcrumbs, MediaBreadcrumbsSchema } from "@/widgets/media-breadcrumbs"
 import { MediaDetails } from "@/widgets/media-details"
-import {
-  MediaPlayer,
-  MediaPlayerSkeleton,
-  getKinoboxPlayers,
-} from "@/widgets/media-player"
+import { MediaPlayer, MediaPlayerSkeleton } from "@/widgets/media-player"
 import { MediaList, MediaListSkeleton } from "@/entities/media"
 import type { MediaFull } from "@/entities/media"
 import { getMediaById, createMediaSlug, getMediaSimilar } from "@/entities/media"
@@ -29,9 +25,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${baseUrl}${createMediaSlug(media.id, media.title)}`
   const title = `${media.title} (${media.year}) смотреть онлайн бесплатно`
-  const iframes = await getKinoboxPlayers({
-    search: { kinopoisk: String(kinopoiskId) },
-  })
 
   return {
     title: title,
@@ -45,12 +38,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       type: "website",
       url: url,
       title: title,
-      videos: iframes.map((i) => ({
-        url: i.iframeUrl,
-        type: "text/html",
-        width: 1120,
-        height: 780,
-      })),
       description: cleanText(media.description),
       siteName: "LORDFILM",
       images: [{ url: media.poster }],
