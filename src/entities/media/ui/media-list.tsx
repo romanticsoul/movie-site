@@ -4,7 +4,7 @@ import { GetMediaResponse } from "../api/getMedia"
 import type { MediaCompact } from "../model/types"
 import { MediaCard, MediaCardSkeleton } from "./media-card"
 
-type MediaListProps =
+export type MediaListProps =
   | { title: React.ReactNode; response: GetMediaResponse; items?: never }
   | { title: React.ReactNode; items: MediaCompact[]; response?: never }
 
