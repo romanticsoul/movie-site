@@ -36,9 +36,11 @@ export function FilterSelect<T extends keyof QueryParams>({
 
   return (
     <Select
-      name={name}
-      label={label}
       size="sm"
+      name={name}
+      radius="md"
+      label={label}
+      classNames={{ trigger: "border-small" }}
       variant="faded"
       selectedKeys={params[name] ? [params[name]!] : []}
       onChange={(event) =>

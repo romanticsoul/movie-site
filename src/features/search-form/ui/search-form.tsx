@@ -21,8 +21,8 @@ export function SearchForm({
     <Form action="/search" className={cn("flex gap-2", className)} {...props}>
       <Input
         name="q"
-        variant="faded"
         classNames={{
+          inputWrapper: "border-small",
           helperWrapper: "hidden group-data-[has-helper=true]:hidden",
         }}
         {...inputProps}

@@ -1,5 +1,6 @@
 import "./globals.css"
 import clsx from "clsx"
+// import { Commissioner } from "next/font/google"
 import { Roboto_Condensed } from "next/font/google"
 import { Header } from "@/widgets/header"
 import { Footer } from "@/widgets/footer"
@@ -19,7 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body
         className={clsx(
-          "bg-pattern min-h-screen font-sans antialiased",
+          // bg-pattern
+          "min-h-screen font-sans antialiased",
           fontSans.className,
         )}
       >

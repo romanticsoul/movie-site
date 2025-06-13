@@ -3,7 +3,7 @@ import type { MediaFull } from "./types"
 import { getMedia } from "../api/getMedia"
 import type { GetMediaParams, GetMediaResponse } from "../api/getMedia"
 
-type MediaCollection = {
+export type MediaCollection = {
   type: MediaFull["type"]
   slug: string
   parentSlug: string | null
@@ -13,8 +13,14 @@ type MediaCollection = {
   getMedia: (filterParams?: GetMediaParams) => Promise<GetMediaResponse>
 }
 
-function mergeParams(p1: GetMediaParams, p2: GetMediaParams) {
-  return merge(p1, p2)
+function mergeParams(p1: GetMediaParams, p2: GetMediaParams): GetMediaParams {
+  const { where: p1Where, ...p1Rest } = p1
+  const { where: p2Where, ...p2Rest } = p2
+  return {
+    where: merge(p1Where, p2Where),
+    ...p1Rest,
+    ...p2Rest,
+  }
 }
 
 export const collections: MediaCollection[] = [

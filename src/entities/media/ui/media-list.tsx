@@ -35,7 +35,7 @@ export function MediaListSkeleton({ rowCount = 1 }: MediaListSkeletonProps) {
   return (
     <section className="container border-x bg-background py-8">
       <h2 className="mb-6">
-        <Skeleton className="h-8 w-1/4 rounded-large" />
+        <Skeleton className="h-8 w-1/6 rounded-large" />
       </h2>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">

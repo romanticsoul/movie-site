@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { SearchParams } from "nuqs"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -5,7 +6,13 @@ import { MediaCollectionChips } from "@/widgets/media-collection-chips"
 import { MediaFilter } from "@/widgets/media-filter"
 import { MediaPagination } from "@/widgets/media-pagination"
 import { loadQueryParams, parseQueryToFetchParams } from "@/entities/query-params"
-import { collections, MediaList } from "@/entities/media"
+import {
+  collections,
+  MediaList,
+  MediaListSkeleton,
+  type MediaCollection,
+  type GetMediaParams,
+} from "@/entities/media"
 import { getBaseUrl } from "@/shared/utils/getBaseUrl"
 
 type Props = {
@@ -44,9 +51,7 @@ export default async function CollectionPage(props: Props) {
 
   const collection = collections.find((c) => c.slug === params.collection)
   if (!collection) notFound()
-
   const filterParams = parseQueryToFetchParams(queryParams)
-  const data = await collection.getMedia(filterParams)
 
   return (
     <>
@@ -58,6 +63,25 @@ export default async function CollectionPage(props: Props) {
       </section>
       <MediaFilter mediaType={collection.type} />
       <MediaCollectionChips type={collection.type} slug={params.collection} />
+      <Suspense
+        key={JSON.stringify(queryParams)}
+        fallback={<MediaListSkeleton rowCount={4} />}
+      >
+        <List collection={collection} params={filterParams} />
+      </Suspense>
+    </>
+  )
+}
+
+type ListProps = {
+  collection: MediaCollection
+  params: GetMediaParams
+}
+
+async function List({ collection, params }: ListProps) {
+  const data = await collection.getMedia(params)
+  return (
+    <>
       <MediaList title="Наша коллекция" response={data} />
       {data && <MediaPagination page={data.page} total={data.totalPages} />}
     </>
