@@ -1,6 +1,8 @@
 import { Link } from "@heroui/link"
 
-export async function Footer() {
+// TODO: Переписать компонент, добавить ссылки на страницы с политиками конфиденциальности и т.д.
+
+export function Footer() {
   return (
     <footer className="container mt-8 py-16">
       <div className="flex items-center justify-between">
