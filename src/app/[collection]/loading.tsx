@@ -5,11 +5,11 @@ import { MediaFilterSkeleton } from "@/widgets/media-filter"
 export default function Loading() {
   return (
     <>
-      <section className="container border-x bg-background py-16">
+      <section className="container pb-8 pt-16">
         <h1>
-          <Skeleton className="h-9 w-2/3 rounded-large md:w-1/3" />
+          <Skeleton className="h-12 w-2/3 rounded-large md:w-1/3" />
         </h1>
-        <div className="mt-4 grid gap-1">
+        <div className="mt-4 grid gap-2">
           <Skeleton className="h-5 w-full rounded-large" />
           <Skeleton className="h-5 w-full rounded-large" />
           <Skeleton className="h-5 w-1/2 rounded-large" />
@@ -17,10 +17,8 @@ export default function Loading() {
       </section>
       <MediaFilterSkeleton />
       <MediaListSkeleton rowCount={4} />
-      <section className="border-y">
-        <div className="container border-x bg-background p-4">
-          <Skeleton className="mx-auto h-10 w-1/3 rounded-medium" />
-        </div>
+      <section className="container p-4">
+        <Skeleton className="mx-auto h-10 w-1/3 rounded-medium" />
       </section>
     </>
   )

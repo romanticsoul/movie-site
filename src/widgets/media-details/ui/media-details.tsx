@@ -11,7 +11,7 @@ export function MediaDetails({ media }: MediaDetailsProps) {
   const genres = media.Genre.map((g) => g.name).slice(0, 2)
 
   return (
-    <section className="container relative z-0 border-x bg-background py-8 md:py-16">
+    <section className="container relative z-0 py-8 md:py-16">
       <MediaJsonLdSchema media={media} />
 
       <div className="relative z-20 grid grid-cols-5 gap-4">

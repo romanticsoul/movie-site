@@ -13,7 +13,7 @@ export function MediaAgeChip({ age, ...props }: MediaAgeChipProps) {
     <Chip
       radius="md"
       variant="solid"
-      color="primary"
+      color="warning"
       classNames={{ content: "font-semibold" }}
       {...props}
     >

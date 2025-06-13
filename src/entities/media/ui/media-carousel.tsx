@@ -31,32 +31,29 @@ export function MediaCarousel(props: MediaCarouselProps) {
   }, [emblaApi])
 
   return (
-    <section className="border-b">
-      <div className="container flex items-center justify-between border-x bg-background pt-4">
+    <section className="container">
+      <div className="flex items-center justify-between pt-4">
         {props.titleSlot && props.titleSlot}
         <div className="flex gap-2">
           <Button
+            size="lg"
             aria-label="Перемотать карусель назад"
             isIconOnly
-            variant="faded"
             onPress={scrollPrev}
           >
             <ChevronLeft className="size-4" strokeWidth={2.5} />
           </Button>
           <Button
+            size="lg"
             aria-label="Перемотать карусель вперёд"
             isIconOnly
-            variant="faded"
             onPress={scrollNext}
           >
             <ChevronRight className="size-4" strokeWidth={2.5} />
           </Button>
         </div>
       </div>
-      <div
-        ref={emblaRef}
-        className="container overflow-hidden border-x bg-background py-4"
-      >
+      <div ref={emblaRef} className="overflow-hidden py-4">
         <div className="flex gap-4">
           {props.items.map((media) => (
             <div

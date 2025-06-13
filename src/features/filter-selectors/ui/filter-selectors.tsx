@@ -36,16 +36,15 @@ export function FilterSelect<T extends keyof QueryParams>({
 
   return (
     <Select
-      size="sm"
+      size="md"
       name={name}
       radius="md"
       label={label}
-      classNames={{ trigger: "border-small" }}
-      variant="faded"
-      selectedKeys={params[name] ? [params[name]!] : []}
+      variant="flat"
+      selectedKeys={params[name] ? [params[name].toString()] : []}
       onChange={(event) =>
         setParams({
-          [name]: event.target.value,
+          [name]: name === "genre" ? Number(event.target.value) : event.target.value,
         } as Pick<QueryParams, T>)
       }
       {...props}

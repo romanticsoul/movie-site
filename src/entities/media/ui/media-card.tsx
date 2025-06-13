@@ -16,12 +16,13 @@ export function MediaCard({ media }: MediaCardProps) {
   return (
     <Link
       href={createMediaSlug(media.id, media.title)}
-      className="flex select-none flex-col items-start self-start rounded-large"
+      className="flex select-none flex-col items-start self-start rounded-large text-inherit"
       title={media.title}
     >
       <MediaPoster src={media.poster} alt={media.title} />
       <MediaRatingChip
         size="sm"
+        radius="sm"
         rating={media.rating_kp}
         className="absolute right-1 top-1 z-10"
       />

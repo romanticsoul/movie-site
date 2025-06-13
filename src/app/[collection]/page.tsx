@@ -55,9 +55,9 @@ export default async function CollectionPage(props: Props) {
 
   return (
     <>
-      <section className="container border-x bg-background py-16">
-        <h1 className="text-3xl font-black">{collection.title}</h1>
-        <p className="mt-4 text-pretty text-medium text-foreground/60 md:w-2/3">
+      <section className="container pb-8 pt-16">
+        <h1 className="text-5xl font-black">{collection.title}</h1>
+        <p className="mt-4 text-pretty text-lg text-foreground/60 md:w-2/3">
           {collection.description}
         </p>
       </section>

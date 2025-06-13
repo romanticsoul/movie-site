@@ -19,20 +19,17 @@ export function MediaPagination(props: MediaPaginationProps) {
   const [params] = useQueryParams()
 
   return (
-    <section className="border-y">
-      <div className="container grid justify-center gap-4 border-x bg-background py-4">
-        <Pagination
-          size="lg"
-          // siblings={2}
-          showControls
-          classNames={{
-            wrapper: "relative z-0",
-          }}
-          total={props.total}
-          page={props.page || params.page || 1}
-          renderItem={(item) => renderItem(item, params, pathname)}
-        />
-      </div>
+    <section className="container grid justify-center gap-4 py-4">
+      <Pagination
+        size="lg"
+        showControls
+        classNames={{
+          wrapper: "relative z-0",
+        }}
+        total={props.total}
+        page={props.page || params.page || 1}
+        renderItem={(item) => renderItem(item, params, pathname)}
+      />
     </section>
   )
 }

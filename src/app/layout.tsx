@@ -14,7 +14,7 @@ const fontSans = Roboto_Condensed({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning lang="ru">
+    <html lang="ru" suppressHydrationWarning>
       <head>
         <YandexMetrika />
       </head>

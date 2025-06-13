@@ -70,7 +70,7 @@ export default async function ContentPage(props: Props) {
 // COMPONENTS
 async function SimilarList({ media }: { media: MediaFull }) {
   const similar = await getMediaSimilar({ media, count: 5 })
-  return <MediaList title="Смотрите также" response={similar} />
+  return <MediaList title="Смотрите также" items={similar} />
 }
 
 // UTILS

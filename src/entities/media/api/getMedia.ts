@@ -14,7 +14,7 @@ export type GetMediaResponse = PaginationResult<MediaCompact[]> | null
 
 async function getData(params?: GetMediaParams): Promise<GetMediaResponse> {
   try {
-    return prisma.media.paginate({
+    const s = prisma.media.paginate({
       page: 1,
       limit: 20,
       select: {
@@ -30,6 +30,8 @@ async function getData(params?: GetMediaParams): Promise<GetMediaResponse> {
       orderBy: [{ year: "desc" }, { rating_imdb: "desc" }, { votes_kp: "desc" }],
       ...params,
     })
+
+    return s
   } catch (error) {
     console.error(error)
     return null

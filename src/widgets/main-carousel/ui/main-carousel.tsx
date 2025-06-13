@@ -5,7 +5,7 @@ export async function MainCarousel() {
   const data = await getRandomMedia(10)
 
   return (
-    <section className="border-b">
+    <section>
       <CarouselContainer media={data} />
     </section>
   )

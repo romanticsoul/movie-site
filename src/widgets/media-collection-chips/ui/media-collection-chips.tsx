@@ -13,20 +13,19 @@ export function MediaCollectionChips({ slug, type }: MediaCollectionChipsProps) 
   if (!chips.length) return null
 
   return (
-    <section className="border-b">
-      <div className="container flex flex-wrap gap-2 border-x bg-background py-2">
-        {chips.map((chip) => (
-          <Chip
-            key={chip.slug}
-            as={Link}
-            href={chip.slug === slug ? chip.parentSlug : chip.slug}
-            variant={chip.slug === slug ? "solid" : "bordered"}
-            color={chip.slug === slug ? "primary" : "default"}
-          >
-            {chip.chipTitle}
-          </Chip>
-        ))}
-      </div>
+    <section className="container flex flex-wrap gap-2 pt-8">
+      {chips.map((chip) => (
+        <Chip
+          key={chip.slug}
+          as={Link}
+          size="lg"
+          href={chip.slug === slug ? chip.parentSlug : chip.slug}
+          variant={chip.slug === slug ? "solid" : "bordered"}
+          color={chip.slug === slug ? "primary" : "default"}
+        >
+          {chip.chipTitle}
+        </Chip>
+      ))}
     </section>
   )
 }

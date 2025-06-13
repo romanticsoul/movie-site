@@ -7,7 +7,6 @@ export function NavigationMenu() {
       {menu.map((item) => (
         <Link
           key={item.slug}
-          size="sm"
           color="foreground"
           className="rounded-medium font-medium"
           href={item.slug}

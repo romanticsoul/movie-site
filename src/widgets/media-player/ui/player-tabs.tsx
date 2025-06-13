@@ -9,7 +9,7 @@ type PlayerTabsProps = {
 
 export function PlayerTabs({ players }: PlayerTabsProps) {
   return (
-    <div className="border-y">
+    <section className="container">
       <Tabs
         size="lg"
         aria-label="Выбор плеера"
@@ -20,16 +20,15 @@ export function PlayerTabs({ players }: PlayerTabsProps) {
           tab: "h-10 px-4",
           cursor: "w-full",
           tabList:
-            "container grid grid-cols-3 justify-start gap-4 rounded-none border-x bg-neutral-100 px-4 py-2 sm:grid-cols-4 md:grid-cols-5",
-          base: "flex border-b",
+            "grid w-full grid-cols-3 justify-start gap-4 rounded-b-none rounded-t-large bg-default-100 p-2 pb-0 sm:grid-cols-4 md:grid-cols-5",
+          base: "flex",
           tabContent: "text-small text-default-foreground/60",
-          panel: "container border-x bg-neutral-100 p-4",
+          panel: "rounded-b-large bg-default-100 p-2",
         }}
       >
         {(player) => (
           <Tab
             key={player.source}
-            // title={`Плеер ${player.source}`}
             title={player.id === 1 ? "Смотреть онлайн" : `Плеер ${player.id}`}
             className="text-small"
           >
@@ -37,12 +36,12 @@ export function PlayerTabs({ players }: PlayerTabsProps) {
               title={`Плеер для просмотра ${player.source}`}
               tabIndex={0}
               src={player.iframeUrl}
-              className="aspect-[3/2] w-full overflow-hidden rounded-large sm:aspect-[16/9] md:aspect-[21/9]"
+              className="aspect-[3/2] w-full overflow-hidden rounded-medium sm:aspect-[16/9] md:aspect-[21/9]"
               allowFullScreen
             />
           </Tab>
         )}
       </Tabs>
-    </div>
+    </section>
   )
 }

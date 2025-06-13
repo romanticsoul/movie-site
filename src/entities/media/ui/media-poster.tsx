@@ -6,7 +6,7 @@ export function MediaPoster({ className, alt, ...props }: ImageProps) {
   return (
     <div
       className={cn(
-        "relative aspect-[2/3] w-full overflow-hidden rounded-large",
+        "relative aspect-[2/3] w-full overflow-hidden rounded-medium",
         className,
       )}
     >
@@ -14,7 +14,7 @@ export function MediaPoster({ className, alt, ...props }: ImageProps) {
         fill
         alt={alt}
         className={cn("object-cover")}
-        sizes="15vw" // TODO: Адаптировать под размер маленьких экранов
+        sizes="(max-width: 639px) 46vw, (max-width: 767px) 30vw, (max-width: 1023px) 23vw, 15vw"
         {...props}
       />
     </div>

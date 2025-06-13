@@ -38,7 +38,7 @@ export default async function Home() {
             <h2>
               <Link
                 href={`/${collection.slug}`}
-                className="rounded-medium text-2xl font-medium"
+                className="rounded-medium text-3xl font-medium text-inherit"
               >
                 {collection.chipTitle}
               </Link>

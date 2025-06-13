@@ -22,7 +22,7 @@ export function SearchForm({
       <Input
         name="q"
         classNames={{
-          inputWrapper: "border-small",
+          input: "font-medium",
           helperWrapper: "hidden group-data-[has-helper=true]:hidden",
         }}
         {...inputProps}

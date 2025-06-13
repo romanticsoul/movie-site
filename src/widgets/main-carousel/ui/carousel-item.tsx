@@ -1,7 +1,13 @@
 import Image from "next/image"
 import { Button } from "@heroui/button"
-import { MediaAgeChip, MediaRatingChip, MediaPoster } from "@/entities/media"
+import {
+  MediaAgeChip,
+  MediaRatingChip,
+  MediaPoster,
+  createMediaSlug,
+} from "@/entities/media"
 import { RandomMedia } from "../api/getRandomMedia"
+import Link from "next/link"
 
 type CarouselItemProps = {
   media: RandomMedia
@@ -23,19 +29,25 @@ export function CarouselItem({ media }: CarouselItemProps) {
         className="z-10 object-cover"
       />
 
-      <div className="container relative z-30 grid h-full items-center gap-4 border-x border-default-600/20 py-8 md:grid-cols-4 md:py-16 lg:grid-cols-5">
+      <div className="container relative z-30 grid h-full items-center gap-4 py-8 md:grid-cols-4 md:py-16 lg:grid-cols-5">
         {/*  */}
         <div className="text-white md:col-span-3">
-          <h1 className="mb-2 text-4xl font-black">{media.title}</h1>
-          <div className="mb-4 flex gap-2">
-            <MediaAgeChip age={media.rating_age} />
-            <MediaRatingChip rating={media.rating_kp} />
-            <p className="text-background/70">
+          <h1 className="mb-2 text-5xl font-black md:w-2/3">{media.title}</h1>
+          <div className="mb-4 flex items-end gap-2">
+            <MediaAgeChip size="md" age={media.rating_age} />
+            <MediaRatingChip size="md" rating={media.rating_kp} />
+            <p className="ml-2 text-white/65">
               {media.year}, {genres.join(", ")}
             </p>
           </div>
           <p className="mb-4 line-clamp-4 text-pretty">{media.description}</p>
-          <Button size="lg" radius="full" className="bg-white">
+          <Button
+            as={Link}
+            size="lg"
+            radius="full"
+            color="primary"
+            href={createMediaSlug(media.id, media.title)}
+          >
             Смотреть сейчас
           </Button>
         </div>
