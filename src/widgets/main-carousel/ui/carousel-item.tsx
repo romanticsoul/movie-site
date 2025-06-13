@@ -32,15 +32,15 @@ export function CarouselItem({ media }: CarouselItemProps) {
       <div className="container relative z-30 grid h-full items-center gap-4 py-8 md:grid-cols-4 md:py-16 lg:grid-cols-5">
         {/*  */}
         <div className="text-white md:col-span-3">
-          <h1 className="mb-2 text-5xl font-black md:w-2/3">{media.title}</h1>
+          <h3 className="mb-2 text-5xl font-black md:w-2/3">{media.title}</h3>
           <div className="mb-4 flex items-end gap-2">
             <MediaAgeChip size="md" age={media.rating_age} />
             <MediaRatingChip size="md" rating={media.rating_kp} />
-            <p className="ml-2 text-white/65">
+            <p className="ml-2 text-lg text-white/65">
               {media.year}, {genres.join(", ")}
             </p>
           </div>
-          <p className="mb-4 line-clamp-4 text-pretty">{media.description}</p>
+          <p className="mb-4 line-clamp-4 text-pretty text-lg">{media.description}</p>
           <Button
             as={Link}
             size="lg"
