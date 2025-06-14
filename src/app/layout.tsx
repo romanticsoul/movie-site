@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={clsx(
           // bg-pattern
-          "min-h-screen font-sans antialiased",
+          "flex min-h-screen justify-center font-sans antialiased",
           fontSans.className,
         )}
       >

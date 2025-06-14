@@ -7,7 +7,6 @@ import { Navbar } from "@heroui/navbar"
 import { SearchForm } from "@/features/search-form"
 import { NavigationMenu } from "./navigation-menu"
 import { MobileMenu } from "./mobile-menu"
-// import { ThemeSwitcher } from "./theme-switcher"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

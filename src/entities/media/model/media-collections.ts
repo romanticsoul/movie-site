@@ -34,7 +34,23 @@ export const collections: MediaCollection[] = [
     description:
       "Смотрите фильмы онлайн: боевики, драмы, комедии и другие. Наслаждайтесь популярными кинокартинами в высоком качестве",
     async getMedia(params = {}) {
-      return getMedia(mergeParams({ where: { type: "movie" } }, params))
+      return getMedia(
+        mergeParams(
+          {
+            where: {
+              type: "movie",
+              Genre: {
+                none: {
+                  name: {
+                    in: ["документальный", "мюзикл", "музыка", "концерт", "реальное ТВ"],
+                  },
+                },
+              },
+            },
+          },
+          params,
+        ),
+      )
     },
   },
 
@@ -47,7 +63,23 @@ export const collections: MediaCollection[] = [
     description:
       "Смотрите сериалы онлайн бесплатно в хорошем качестве! От захватывающих боевиков и приключений до романтических историй и психологических драм. Лучшие сериалы 2025 года, а также проверенные временем хиты — доступно круглосуточно без регистрации.",
     async getMedia(params = {}) {
-      return getMedia(mergeParams({ where: { type: "tv_series" } }, params))
+      return getMedia(
+        mergeParams(
+          {
+            where: {
+              type: "tv_series",
+              Genre: {
+                none: {
+                  name: {
+                    in: ["документальный", "мюзикл", "музыка", "концерт", "реальное ТВ"],
+                  },
+                },
+              },
+            },
+          },
+          params,
+        ),
+      )
     },
   },
   {
