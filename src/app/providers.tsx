@@ -15,7 +15,11 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <NuqsAdapter>
-      <HeroUIProvider disableRipple navigate={router.push} className="flex flex-col">
+      <HeroUIProvider
+        disableRipple
+        navigate={router.push}
+        className="flex min-h-screen flex-col"
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

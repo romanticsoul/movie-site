@@ -31,7 +31,7 @@ export function MediaCarousel(props: MediaCarouselProps) {
   }, [emblaApi])
 
   return (
-    <section className="container">
+    <section className="container overflow-hidden">
       <div className="flex items-center justify-between pt-4">
         {props.titleSlot && props.titleSlot}
         <div className="flex gap-2">
@@ -41,7 +41,7 @@ export function MediaCarousel(props: MediaCarouselProps) {
             isIconOnly
             onPress={scrollPrev}
           >
-            <ChevronLeft className="size-4" strokeWidth={2.5} />
+            <ChevronLeft className="size-5" strokeWidth={2.5} />
           </Button>
           <Button
             size="lg"
@@ -49,7 +49,7 @@ export function MediaCarousel(props: MediaCarouselProps) {
             isIconOnly
             onPress={scrollNext}
           >
-            <ChevronRight className="size-4" strokeWidth={2.5} />
+            <ChevronRight className="size-5" strokeWidth={2.5} />
           </Button>
         </div>
       </div>

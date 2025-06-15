@@ -18,16 +18,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <YandexMetrika />
       </head>
-      <body
-        className={clsx(
-          // bg-pattern
-          "flex min-h-screen justify-center font-sans antialiased",
-          fontSans.className,
-        )}
-      >
+      <body className={clsx("font-sans antialiased", fontSans.className)}>
         <Providers>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="relative grid flex-1">{children}</main>
           <Footer />
         </Providers>
       </body>

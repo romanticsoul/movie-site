@@ -12,12 +12,12 @@ export function CarouselContainer(props: CarouselContainerProps) {
   const [emblaRef] = useEmblaCarousel({ loop: true })
 
   return (
-    <div ref={emblaRef} className="overflow-hidden">
+    <section ref={emblaRef} className="overflow-hidden">
       <div className="flex">
         {props.media.map((media) => (
           <CarouselItem key={media.id} media={media} />
         ))}
       </div>
-    </div>
+    </section>
   )
 }

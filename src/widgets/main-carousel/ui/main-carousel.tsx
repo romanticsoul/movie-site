@@ -4,9 +4,5 @@ import { CarouselContainer } from "./carousel-container"
 export async function MainCarousel() {
   const data = await getRandomMedia(10)
 
-  return (
-    <section>
-      <CarouselContainer media={data} />
-    </section>
-  )
+  return <CarouselContainer media={data} />
 }
