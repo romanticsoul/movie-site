@@ -1,4 +1,4 @@
-import { Kinobox } from "../api/getKinoboxPlayers"
+import { getKinoboxPlayers } from "../api/getKinoboxPlayers"
 import { PlayerTabs } from "./player-tabs"
 
 export type MediaPlayerProps = {
@@ -6,7 +6,7 @@ export type MediaPlayerProps = {
 }
 
 export async function MediaPlayer({ kinopoiskId }: MediaPlayerProps) {
-  const players = await Kinobox({
+  const players = await getKinoboxPlayers({
     search: { kinopoisk: String(kinopoiskId) },
     players: {
       turbo: {

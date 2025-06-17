@@ -37,7 +37,9 @@ type KinoboxOptions = {
   baseUrl?: string
 }
 
-export async function Kinobox(options: KinoboxOptions): Promise<KinoboxPlayer[]> {
+export async function getKinoboxPlayers(
+  options: KinoboxOptions,
+): Promise<KinoboxPlayer[]> {
   const baseUrl = new URL(options.baseUrl || "https://kinobox.tv/")
   const playersConfig = options.players || {}
   const search = options.search
