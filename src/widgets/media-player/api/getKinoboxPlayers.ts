@@ -1,117 +1,132 @@
 "use server"
 import "server-only"
-import { cache } from "react"
+import { URL, URLSearchParams } from "url"
 
-type KinoboxConfig = {
-  baseUrl?: string
-  players?: Record<string, PlayerConfig>
-  params?: Record<string, Record<string, string>>
-  translations?: Record<string, number>
-  search?: SearchQuery
-  events?: Partial<{
-    playerLoaded: (success: boolean, players: KinoboxPlayer[]) => void
-  }>
+// Ограничиваем допустимые плееры
+type PlayerSource = "alloha" | "cdnmovies" | "turbo" | "videocdn"
+
+type SearchParams = {
+  kinopoisk: string
 }
 
 type PlayerConfig = {
-  enable?: boolean
-  position?: number
+  position: number
   domain?: string
 }
 
-type SearchQuery = {
-  kinopoisk?: string
-  imdb?: string
-  tmdb?: string
-  title?: string
-  query?: string
+type PlayersConfig = {
+  [key in PlayerSource]?: PlayerConfig
+}
+
+type PlayerResponse = {
+  success: boolean
+  source: string
+  iframeUrl: string | null
+  translations?: Array<{ name?: string; quality?: string; iframeUrl?: string }>
 }
 
 export type KinoboxPlayer = {
   id: number
-  source: string
-  iframeUrl: string
-  success: boolean
-  translations: Translation[]
-}
-
-type Translation = {
+  url: string
   name: string
-  quality?: string
 }
 
-const defaultTranslations: Record<string, number> = {
-  "не требуется": 1,
-  русская: 1,
-  русский: 1,
-  дублирование: 2,
-  дублированный: 2,
-  дубляж: 2,
-  "полное дублирование": 2,
-  lostfilm: 5,
-  "hdrezka studio": 7,
-  "проф.": 8,
-  профессиональный: 8,
-  многоголосый: 9,
-  любительский: 20,
-  двухголосый: 21,
-  "звук с ts": 1100,
-  оригинальная: 1111,
-  белорус: 1234,
-  субтитры: 1234,
-  украин: 1234,
+type KinoboxOptions = {
+  search: SearchParams
+  players?: PlayersConfig
+  baseUrl?: string
 }
 
-async function getPlayers(config: KinoboxConfig): Promise<KinoboxPlayer[]> {
-  const settings = {
-    baseUrl: config.baseUrl || "https://kinobox.tv/",
-    players: config.players || {},
-    params: config.params || {},
-    translations: config.translations || defaultTranslations,
+export async function Kinobox(options: KinoboxOptions): Promise<KinoboxPlayer[]> {
+  const baseUrl = new URL(options.baseUrl || "https://kinobox.tv/")
+  const playersConfig = options.players || {}
+  const search = options.search
+
+  // Формирование URL для запроса
+  const getSearchUrl = (): string => {
+    const params = new URLSearchParams()
+    params.set("kinopoisk", search.kinopoisk)
+    baseUrl.pathname = "api/players"
+    baseUrl.search = params.toString()
+    return baseUrl.toString()
   }
 
-  const searchParams = new URLSearchParams()
+  // Обработка URL iframe с заменой домена
+  const getIframeUrl = (iframeUrl: string, source: string): string => {
+    const config = Object.entries(playersConfig).find(
+      ([key]) => key.toLowerCase() === source.toLowerCase(),
+    )?.[1]
 
-  const search = config.search || {}
-  if (search.kinopoisk) searchParams.set("kinopoisk", search.kinopoisk)
-  if (search.imdb) searchParams.set("imdb", search.imdb)
-  if (search.tmdb) searchParams.set("tmdb", search.tmdb)
-  if (search.title) searchParams.set("title", search.title)
-  if (search.query) searchParams.set("query", search.query)
+    let url = iframeUrl
+    if (config?.domain) {
+      const sourceLower = source.toLowerCase() as PlayerSource
+      const domain = config.domain.startsWith("//")
+        ? `https:${config.domain}`
+        : config.domain
 
-  const sources = Object.keys(settings.players)
-  if (sources.length > 0) searchParams.set("sources", sources.join(",").toLowerCase())
+      if (sourceLower === "alloha" || sourceLower === "cdnmovies") {
+        url = url.replace(/^(https?:\/\/)[^\/]+/, domain)
+      } else if (sourceLower === "turbo") {
+        url = url.replace(/^https:\/\/[^\/]+\/embed\/[^\/]+/, domain)
+      } else if (sourceLower === "videocdn") {
+        url = url.replace(/^(https?:\/\/[^\/]+\/[^\/]+)/, domain)
+      }
+    }
 
-  const url = new URL(settings.baseUrl)
-  url.pathname = "api/players"
-  url.search = searchParams.toString()
+    return new URL(url).toString()
+  }
 
-  const res = await fetch(url.toString(), {
-    cache: "force-cache",
-    next: { revalidate: 86400 },
+  // Выполнение запроса
+  const response = await fetch(getSearchUrl())
+  if (!response.ok) {
+    throw new Error(`Ошибка Kinobox (${response.status}) ${response.statusText}`)
+  }
+
+  const data: PlayerResponse[] = await response.json()
+
+  // Фильтрация успешных плееров
+  const players = data.filter((player) => player.success && player.iframeUrl)
+
+  // Сортировка: настроенные плееры на заданные позиции, остальные — в исходном порядке
+  const sortedPlayers: PlayerResponse[] = []
+  const usedPositions = new Set<number>()
+
+  // Сначала размещаем настроенные плееры на их позициях
+  for (const [source, config] of Object.entries(playersConfig)) {
+    const player = players.find((p) => p.source.toLowerCase() === source.toLowerCase())
+    if (player) {
+      const position = config.position - 1 // Позиция 1 -> индекс 0
+      sortedPlayers[position] = player
+      usedPositions.add(position)
+    }
+  }
+
+  // Заполняем оставшиеся позиции нен настроенными плеерами в исходном порядке
+  let currentIndex = 0
+  for (const player of players) {
+    if (
+      !Object.keys(playersConfig).some(
+        (source) => source.toLowerCase() === player.source.toLowerCase(),
+      )
+    ) {
+      while (sortedPlayers[currentIndex] || usedPositions.has(currentIndex)) {
+        currentIndex++
+      }
+      sortedPlayers[currentIndex] = player
+      currentIndex++
+    }
+  }
+
+  // Удаляем undefined элементы, если есть
+  const finalPlayers = sortedPlayers.filter((p) => p)
+
+  // Формирование результата с последовательными id
+  return finalPlayers.map((player, index) => {
+    const iframeUrl = player.iframeUrl!
+    return {
+      id: index + 1,
+      url: getIframeUrl(iframeUrl, player.source),
+      name: player.source,
+    }
   })
-
-  // console.log(url.toString())
-
-  if (!res.ok) throw new Error(`Failed to fetch: ${res.statusText}`)
-
-  const data: KinoboxPlayer[] = await res.json()
-
-  const filtered = data
-    .filter((p) => p.success && p.iframeUrl)
-    .filter((p) => {
-      const conf = settings.players[p.source.toLowerCase()]
-      return conf?.enable !== false
-    })
-    .sort((a, b) => {
-      const posA = settings.players[a.source.toLowerCase()]?.position ?? 0
-      const posB = settings.players[b.source.toLowerCase()]?.position ?? 0
-      return posA - posB
-    })
-    .map((player, i) => ({ ...player, id: ++i }))
-
-  config.events?.playerLoaded?.(filtered.length > 0, filtered)
-  return filtered
 }
-
-export const getKinoboxPlayers = cache(getPlayers)
