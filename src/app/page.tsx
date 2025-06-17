@@ -12,6 +12,9 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: await getBaseUrl(),
     },
+    other: {
+      "turbo-verification": "7647966b7343c29048673252e490f736",
+    },
   }
 }
 
